@@ -3,7 +3,7 @@
 
 function generateRandomString($length = 10)
 {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+';
+    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
     for ($i = 0; $i < $length; $i++) {
@@ -12,25 +12,60 @@ function generateRandomString($length = 10)
     return $randomString;
 }
 
+$allLowerLettersArray = str_split("abcdefghijklmnopqrstuvwxyz");
+$countLowerLettersArray = 0;
+
+$allUpperLettersArray = str_split("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+$countUpperLettersArray = 0;
+
+$allLowerLetters = "";
+$allUpperLetter = "";
+
+
 function getSpecificCharOnString($string, $index)
 {
     return substr($string, $index - 1, 1);
 }
 
-$exampleString = generateRandomString(20);
+$exampleString = generateRandomString(15);
 $newString = "";
 
-for ($counter = strlen($exampleString); $counter > 0; $counter--) {
-    $newString .= getSpecificCharOnString($exampleString, $counter);
+for ($counter = 1;
+     $counter <= strlen($exampleString);
+     $counter++) {
+    $char = getSpecificCharOnString($exampleString, $counter);
+    if (in_array($char, $allUpperLettersArray)) {
+        $allUpperLetter .= $char;
+        $countUpperLettersArray++;
+    } else if (in_array($char, $allLowerLettersArray)) {
+        $allLowerLetters .= $char;
+        $countLowerLettersArray++;
+    }
 }
+
 ?>
+
 <div dir="rtl" style="font-size: 25px">
     <div>
-        <span>ورودی : </span>
-        <span><?php echo $exampleString;?></span>
+        <span>  رشته    :  </span>
+        <span><?php echo $exampleString; ?></span>
+    </div>
+    <hr />
+    <div>
+        <span> حروف بزرگ :  </span>
+        <span><?php echo $allUpperLetter; ?></span>
     </div>
     <div>
-        <span>خروجی : </span>
-        <span><?php echo $newString;?></span>
+        <span> تعداد حروف بزرگ :  </span>
+        <span><?php echo $countUpperLettersArray; ?></span>
+    </div>
+    <hr />
+    <div>
+        <span> حروف کوچک :  </span>
+        <span><?php echo $allLowerLetters; ?></span>
+    </div>
+    <div>
+        <span> تعداد حروف کوچک :  </span>
+        <span><?php echo $countLowerLettersArray; ?></span>
     </div>
 </div>
